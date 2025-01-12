@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import '/models/category.dart';
 import '/pages/category.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  List<Category> categories = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final fetchedCategories = await fetchCategories();
+    setState(() {
+      categories = fetchedCategories;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
